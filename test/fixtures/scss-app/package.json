@@ -1,0 +1,6 @@
+{
+  "name": "fixture-scss",
+  "private": true,
+  "dependencies": { "tailwindcss": "3.4.10" },
+  "devDependencies": { "sass": "1.79.0" }
+}

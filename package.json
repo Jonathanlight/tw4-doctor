@@ -1,0 +1,50 @@
+{
+  "name": "tw4-doctor",
+  "version": "0.1.0",
+  "description": "Audit a Tailwind v3 codebase before upgrading to v4 — find what breaks silently",
+  "license": "MIT",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "bin": { "tw4-doctor": "./lib/cli.js" },
+  "exports": {
+    ".": { "types": "./lib/index.d.ts", "default": "./lib/index.js" },
+    "./package.json": "./package.json"
+  },
+  "files": ["lib", "README.md", "LICENSE"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && chmod +x lib/cli.js",
+    "clean": "rm -rf lib",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "dependencies": {
+    "cac": "^6.7.14",
+    "jiti": "^2.4.2",
+    "picocolors": "^1.1.1",
+    "tinyglobby": "^0.2.10"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "keywords": [
+    "tailwind",
+    "tailwindcss",
+    "tailwind-v4",
+    "migration",
+    "upgrade",
+    "audit",
+    "codemod",
+    "lint",
+    "cli"
+  ],
+  "repository": { "type": "git", "url": "git+https://github.com/Jonathanlight/tw4-doctor.git" },
+  "bugs": { "url": "https://github.com/Jonathanlight/tw4-doctor/issues" },
+  "homepage": "https://github.com/Jonathanlight/tw4-doctor#readme",
+  "publishConfig": { "access": "public", "provenance": true }
+}

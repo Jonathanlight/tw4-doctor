@@ -1,0 +1,7 @@
+{
+  "name": "fixture-next",
+  "private": true,
+  "browserslist": ["chrome >= 90", "safari >= 15", "firefox >= 115"],
+  "dependencies": { "next": "14.2.0", "react": "18.3.1", "tailwindcss": "3.4.10" },
+  "devDependencies": { "@tailwindcss/typography": "0.5.13", "tailwind-merge": "2.5.0" }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "fixture-coreplugins",
+  "private": true,
+  "dependencies": { "tailwindcss": "3.4.10" },
+  "devDependencies": { "tailwindcss-animate": "1.0.7" }
+}
