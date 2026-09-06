@@ -1,0 +1,72 @@
+name: Release
+
+# Publishes to npm when a version tag is pushed.
+#
+# Provenance is why this runs here rather than from a laptop: npm can only
+# generate a signed attestation linking the tarball to the commit that built it
+# from a CI runner with an OIDC identity. That is what `id-token: write` below
+# is for, and it is why `publishConfig.provenance` is set in package.json — a
+# local `npm publish` is refused rather than silently downgraded.
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Build and check everything, but do not publish
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  id-token: write # required for provenance
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci --legacy-peer-deps
+
+      - name: Check the tag matches the version in package.json
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          set -euo pipefail
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG="$(node -p "require('./package.json').version")"
+          if [ "$TAG" != "$PKG" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match package.json version $PKG." >&2
+            echo "Bump the version and retag; publishing a mismatch cannot be undone." >&2
+            exit 1
+          fi
+          echo "Publishing version $PKG"
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish to npm
+        if: startsWith(github.ref, 'refs/tags/') && inputs.dry-run != true
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Dry run
+        if: ${{ !startsWith(github.ref, 'refs/tags/') || inputs.dry-run == true }}
+        run: npm publish --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
