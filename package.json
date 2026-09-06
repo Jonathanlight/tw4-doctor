@@ -1,6 +1,6 @@
 {
   "name": "tw4-doctor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Audit a Tailwind v3 codebase before upgrading to v4 — find what breaks silently",
   "license": "MIT",
   "type": "module",
