@@ -6,13 +6,24 @@
   "type": "module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "bin": { "tw4-doctor": "./lib/cli.js" },
+  "bin": {
+    "tw4-doctor": "./lib/cli.js"
+  },
   "exports": {
-    ".": { "types": "./lib/index.d.ts", "default": "./lib/index.js" },
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
     "./package.json": "./package.json"
   },
-  "files": ["lib", "README.md", "LICENSE"],
-  "engines": { "node": ">=20" },
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && chmod +x lib/cli.js",
     "clean": "rm -rf lib",
@@ -43,8 +54,15 @@
     "lint",
     "cli"
   ],
-  "repository": { "type": "git", "url": "git+https://github.com/Jonathanlight/tw4-doctor.git" },
-  "bugs": { "url": "https://github.com/Jonathanlight/tw4-doctor/issues" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jonathanlight/tw4-doctor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Jonathanlight/tw4-doctor/issues"
+  },
   "homepage": "https://github.com/Jonathanlight/tw4-doctor#readme",
-  "publishConfig": { "access": "public", "provenance": true }
+  "publishConfig": {
+    "access": "public"
+  }
 }
